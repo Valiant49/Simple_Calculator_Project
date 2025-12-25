@@ -1,0 +1,3 @@
+/home/vichan/Documents/College/2ndYear/1stSem/PlatformTechs/Simple_Calculator_Project/build/CMakeFiles/main.dir
+/home/vichan/Documents/College/2ndYear/1stSem/PlatformTechs/Simple_Calculator_Project/build/CMakeFiles/edit_cache.dir
+/home/vichan/Documents/College/2ndYear/1stSem/PlatformTechs/Simple_Calculator_Project/build/CMakeFiles/rebuild_cache.dir
