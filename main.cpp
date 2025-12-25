@@ -13,7 +13,6 @@ struct FollowingValues {
   float operand2;
 };
 
-void showHomeMenu();
 Values getInput();
 void calculations(const Values &input, float &total);
 char showMenu();
@@ -33,7 +32,6 @@ int main() {
     cout << "Bye!" << endl;
     return 0;
   }
-  cout << total << endl;
   bool loop = true;
   while (loop == true) {
     Values input = getInput1(total);
@@ -43,14 +41,7 @@ int main() {
       cout << "Bye!" << endl;
       break;
     }
-    cout << total << endl;
   }
-}
-
-void showHomeMenu() {
-  cout << "Simple Calculator" << endl;
-  cout << "Options:" << endl;
-  cout << "1. Open Calculator \n2. Enter TUI Mode \n3. Exit" << endl;
 }
 
 char showMenu() {
