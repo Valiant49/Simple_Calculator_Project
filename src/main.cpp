@@ -1,5 +1,12 @@
 #include <iostream>
 #include <limits>
+#include <string>
+#include <ftxui/component/component.hpp>
+#include <ftxui/component/screen_interactive.hpp>
+#include <ftxui/dom/elements.hpp>
+#include <ftxui/screen/screen.hpp>
+#include <ftxui/screen/color.hpp>
+
 
 using namespace std;
 
@@ -23,45 +30,55 @@ Values getInput1(float runningTotal);
 void calculations1(Values &input, float &total);
 
 char continueReply;
+float total;
+float num1;
+float num2;
 float grandTotal;
 
 int main() {
-  float total;
-  int homeOption = 0;
-  bool mainLoop = true;
+  using namespace ftxui;
 
-  while (mainLoop == true) {
-    showHomeMenu();
-    cout << "Option: ";
-    cin >> homeOption;
+  float currentNumber = 0;
+  std::string display = "";
+  auto screen = ScreenInteractive::TerminalOutput();
+ 
+  auto calculator_component = Renderer([&] {
+    return vbox({
+      text("===Simple Calculator==="),
+      text("Current: " + display),
+      text(""),
+      text("Press 0-9 for numbers"),
+      text("q - quit")
 
-    if (cin.fail()) {
-      cin.clear();
-      cin.ignore(numeric_limits<streamsize>::max(), '\n');
-      cout << "Enter a valid option from 1-3!" << endl;
-      continue;
+    });
+  });
+
+  calculator_component = CatchEvent(calculator_component, [&](Event event){
+    if (event == Event::Character('q')) {
+      screen.Exit();
+      return true;
     }
 
-    if (homeOption < 0 || homeOption > 3) {
-      cout << "Enter a valid option from 1-3!" << endl;
-      continue;
+    if (event.is_character() && std::isdigit(event.character()[0])){
+      display += event.character();
+      return true;
     }
 
-    switch (homeOption) {
-    case 1: {
-      openCalculator(total, mainLoop);
-      mainLoop = false;
-      break;
+    if (event == Event::Character('+')) {
+        operand1 = std::stof(display);
+        display = "";
+
     }
-    case 2: {
-    }
-    case 3: {
-      cout << "Bye" << endl;
-    }
-    default:
-      break;
-    }
-  }
+
+
+
+    return false;
+  });
+
+
+    screen.Loop(calculator_component);
+
+  return 0;
 }
 
 void showHomeMenu() {
